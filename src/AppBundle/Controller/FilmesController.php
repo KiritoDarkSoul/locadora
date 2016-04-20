@@ -20,7 +20,7 @@ class FilmesController extends Controller
     }
     
     /**
-     * @Route("/filmes/Cdastro")
+     * @Route("/filmes/cadastro")
      */
     public function CadastroAction()
     {
