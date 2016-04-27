@@ -20,9 +20,9 @@ class DefaultController extends Controller
         ]);
     }
     
-       /**
-         * @Route("/produto/cadastrar")
-         */
+    /**
+     * @Route("/produto/cadastrar")
+     */
     public function cadastrarAction(Request $request)
     {
         return $this->render('default/cadastrar.html.twig');

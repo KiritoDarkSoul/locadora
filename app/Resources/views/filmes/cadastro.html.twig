@@ -1,10 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Fimes{% endblock %} 
-
+{% block title %}Filmes{% endblock %}
 
 {% block body %}
-    <h1>Cadastro de filmes</h1>
-{% endblock %}
-   
     
+    <form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Novo Filme</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="nome">Titulo</label>  
+  <div class="col-md-4">
+  <input id="nome" name="nome" type="text" placeholder="Titulo" class="form-control input-md" required="">
+  <span class="help-block">Digite o nome do filme</span>  
+  </div>
+</div>
+
+
+
+<!-- Multiple Radios (inline) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="lacamento">Lançamento</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="lacamento-0">
+      <input type="radio" name="lacamento" id="lacamento-0" value="1" checked="checked">
+      Sim
+    </label> 
+    <label class="radio-inline" for="lacamento-1">
+      <input type="radio" name="lacamento" id="lacamento-1" value="0">
+      Não
+    </label>
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="genero">Genero</label>
+  <div class="col-md-4">
+    <select id="genero" name="genero" class="form-control">
+      <option value="Ação">Ação</option>
+      <option value="Terror">Terror</option>
+    </select>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="salvar"></label>
+  <div class="col-md-4">
+    <button id="salvar" name="salvar" class="btn btn-primary">Salvar</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+    
+{% endblock %}

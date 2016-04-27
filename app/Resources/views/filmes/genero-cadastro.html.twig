@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Generos</h1>
+    <form class="form-horizontal" action="/filmes/genero/criar" method="POST">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Cadastro de Generos</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="nome">Nome</label>  
+                <div class="col-md-4">
+                    <input id="nome" name="nome" type="text" placeholder="Digite o Nome do genero" class="form-control input-md" required="">
+
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="Salvar"></label>
+                <div class="col-md-4">
+                    <button id="Salvar" name="Salvar" class="btn btn-primary" type="submit">Salvar</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+{% endblock %}
