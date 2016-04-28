@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Cliente</h1>
 
-    <table>
+    <table class="table table-condensed">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -22,8 +22,8 @@
                 <td>{{ cliente.email }}</td>
             </tr>
             <tr>
-                <th>Datanascimento</th>
-                <td>{% if cliente.dataNascimento %}{{ cliente.dataNascimento|date('Y-m-d') }}{% endif %}</td>
+                <th>Data de nascimento</th>
+                <td>{% if cliente.dataNascimento %}{{ cliente.dataNascimento|date('Y/m/d') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>

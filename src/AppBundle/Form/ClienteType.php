@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type as FormType;
+
 class ClienteType extends AbstractType
 {
     /**
@@ -15,10 +17,17 @@ class ClienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nome')
-            ->add('endereco')
-            ->add('email')
-            ->add('dataNascimento')
+            ->add('nome', FormType\TextType::class, array(
+                'attr'=>array(
+                    'maxlength'=>200,
+                    'min'=>6
+                    )
+            ))
+            ->add('endereco', FormType\TextType::class)
+            ->add('email', FormType\EmailType::class)
+            ->add('dataNascimento', FormType\BirthdayType::class,array(
+                'format'=>'dd/MMMM/yyyy'
+                ))
         ;
     }
     
