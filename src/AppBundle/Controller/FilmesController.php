@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Filmes;
 use AppBundle\Entity\Genero;
 
+use AppBundle\Form\FilmesType;
+
 class FilmesController extends Controller
 {
     /**
@@ -50,19 +52,25 @@ class FilmesController extends Controller
     /**
      * @Route("/filmes/cadastro")
      */
-    public function cadastroAction()
+    public function cadastroAction(Request $request)
     {
-        $filme = new Filmes();
-        $filme->setGenero('Terror');
-        $filme->setLancamento(false);
-        $filme->setNome('Donnie Darko');
+        $filme = new filmes();
+        $form = $this->createForm(FilmesType::class, $filme);
         
-        $doctrine = $this->getEm();
-        $doctrine->persist($filme);
-        $doctrine->flush();
+        $form->handleRequest($request);
         
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $doctrine = $this->getEm();
+            $doctrine->persist($filme);
+            $doctrine->flush();
+            
+            return $this->redirectToRoute('filmes_index');
+        }
         
-        return $this->render('filmes/cadastro.html.twig');
+        return $this->render('filmes/cadastro.html.twig', array(
+           'form_filmes'=> $form->createView()
+        ));
     }
     /**
      * @Route("/filmes/genero", name="genero_index")
