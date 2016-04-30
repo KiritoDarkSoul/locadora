@@ -50,6 +50,31 @@ class FilmesController extends Controller
     }
     
     /**
+     *@Route("/filmes/filtrar/{filtro}", name="filmes_filtrar") 
+     */
+    public function filtrarAction($filtro)
+    {
+        $filmes = $this->getEm()->getRepository('AppBundle:Filmes');
+        
+        if ($filtro == 'lancamento')
+        {
+            $retorno = $filmes->findBy(
+                    array('lancamento' => true)
+                    );
+        }else
+        {
+            $retorno = $filmes->findAll();
+        }
+        
+        
+        
+        /*View*/
+        return $this->render('filmes/index.html.twig', 
+                array('filmes' => $retorno)
+        );
+    }
+
+        /**
      * @Route("/filmes/cadastro")
      */
     public function cadastroAction(Request $request)
@@ -61,6 +86,16 @@ class FilmesController extends Controller
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            $pasta = __DIR__.'/../../../web/capas';
+            $imagem = $form['capa']->getData();
+            $ext = $imagem->guessExtension();
+            
+            $nomeArquivo = uniqid().'.'.$ext;
+            
+            $imagem->move($pasta, $nomeArquivo);
+            
+            $filme->setCapa($nomeArquivo);
+            
             $doctrine = $this->getEm();
             $doctrine->persist($filme);
             $doctrine->flush();

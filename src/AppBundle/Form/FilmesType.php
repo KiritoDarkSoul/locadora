@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use \Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use \Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use  \Symfony\Component\Form\Extension\Core\Type\FileType;
+use \Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class FilmesType extends AbstractType
 {
@@ -32,7 +33,7 @@ class FilmesType extends AbstractType
                 ->add('sinopse',TextareaType::class, array(
                     'required' => false
                 ))
-                ->add('data')
+                ->add('data', BirthdayType::class)
                 ->add('capa', FileType::class, array(
                     'required' => false
                 ));

@@ -48,6 +48,7 @@ class Filmes {
 
     /**
      * @ORM\Column(type="string", length=120, nullable=true)
+     * @Assert\Image()
      */
     private $capa;
 

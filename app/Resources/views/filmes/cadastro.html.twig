@@ -2,27 +2,52 @@
 
 {% block title %}Filmes{% endblock %}
 
+ 
+{% block stylesheets %}
+    <style>
+        .radio-exp .radio {
+            float:left;
+            margin-right: 15px;
+        }        
+    </style>
+      
+{% endblock %}
+
 {% block body %}
 
     <fieldset>
         <legend>Novo filme</legend>
 
         {{ form_start(form_filmes) }}
-        {{ form_widget(form_filmes) }}
-      
 
-        <button id="salvar" class="btn bnt-primary pull-right" type="submit">Salvar</button>
+        {{ form_row(form_filmes.genero) }}
         
-  {{ form_end(form_filmes) }}
+        <div class="form-group">
+            {{ form_label(form_filmes.lancamento, "É lançamento?") }}
+            {{ form_widget(form_filmes.lancamento, {
+                'attr':{
+                "class": "col-sm-10 radio-exp"
+            }
+            })
+            }}
+            {{ form_errors(form_filmes.lancamento) }}
+        </div>
+        
+            {{ form_widget(form_filmes) }}
+        
+            <!--button-->
+            <button id="salvar" class="btn bnt-primary pull-right" type="submit">Salvar</button>
+
+            {{ form_end(form_filmes) }}
     </fieldset>
 {% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript">
-        $(document).ready(function(){
-           $('#filmes_genero').append('<option value="xxx" selected="selected">XXX</option>'); 
+        $(document).ready(function() {
+            $('#filmes_genero').append('<option value="xxx" selected="selected">XXX</option>');
         });
-        
+
     </script>
-    
-    {% endblock %}  
+
+{% endblock %}  
