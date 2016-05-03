@@ -73,8 +73,112 @@ class FilmesController extends Controller
                 array('filmes' => $retorno)
         );
     }
-
+    
+    
+    /**
+     * @Route("/filmes/deletar/{id}", name="filmes_deletar")
+     */
+    public function deletarAction($id)
+    {
+        $repositorio = $this->getEm()->getRepository('AppBundle:Filmes');
+        $filme = $repositorio->find($id);
+        
+        $this->getEm()->remove($filme);
+        
+        $this->getEm()->flush();
+        
+        $this->addFlash('info', 'Filme deletado com sucesso');
+        
+        return $this->redirectToRoute("filmes_index");
+    }
+    
+    /**
+     * @Route("/filmes/editar/{id}", name="filmes_editar")
+     */
+    public function filmesEditarAction(Request $request, $id)
+    {
+        $repositorio = $this->getEm()->getRepository('AppBundle:Filmes');
+        
         /**
+         * @var \AppBundle\Entity\
+         */
+        $filme = $repositorio->find($id);
+        $capa = $filme-> getNomeCapa();
+        
+        $form = $this->createForm(FilmesType::class, $filme);
+        $form->handleRequest($request);
+        
+         if ($form->isSubmitted() && $form->isValid())
+        {
+            $pasta = __DIR__.'/../../../web/capas';
+            $imagem = $form['capa']->getData();
+            $ext = $imagem->guessExtension();
+            
+            $nomeArquivo = uniqid().'.'.$ext;
+            
+            $imagem->move($pasta, $nomeArquivo);
+            
+            $filme->setCapa($nomeArquivo);
+            
+            $doctrine = $this->getEm();
+            $doctrine->persist($filme);
+            $doctrine->flush();
+            
+            $this->addFlash('cadastro', 'O filme foi cadastrado com sucesso');
+            
+            return $this->redirectToRoute('filmes_index');
+        }
+        
+        return $this->render('filmes/cadastro.html.twig', array(
+           'form_filmes'=> $form->createView(),
+            'capa' => $capa
+                          
+      ));
+    }
+    /**
+     * 
+     */
+    public function cadastroAction(Request $request)
+    {
+        $filme = new Filmes();
+        $form =  $this->createForm(FilmesType::class, $filme);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            return $this->;
+    }
+
+    /**
+     * 
+     * @param type $filme
+     * @param type $request
+     * @return type
+     */
+    private function formSubmit($filme, $request)
+     {
+   
+            $pasta = __DIR__.'/../../../web/capas';
+            $imagem = $form['capa']->getData();
+            $ext = $imagem->guessExtension();
+            
+            $nomeArquivo = uniqid().'.'.$ext;
+            
+            $imagem->move($pasta, $nomeArquivo);
+            
+            $filme->setCapa($nomeArquivo);
+            
+            $doctrine = $this->getEm();
+            $doctrine->persist($filme);
+            $doctrine->flush();
+            
+            $this->addFlash('cadastro', 'O filme foi cadastrado com sucesso');
+            
+            return $this->redirectToRoute('filmes_index');
+        }
+    }
+
+    /**
      * @Route("/filmes/cadastro")
      */
     public function cadastroAction(Request $request)
@@ -99,6 +203,8 @@ class FilmesController extends Controller
             $doctrine = $this->getEm();
             $doctrine->persist($filme);
             $doctrine->flush();
+            
+            $this->addFlash('cadastro', 'O filme foi cadastrado com sucesso');
             
             return $this->redirectToRoute('filmes_index');
         }

@@ -169,9 +169,22 @@ class Filmes {
     /**
      * Get capa
      *
+     * @return string \Symfony\Component\HttpFondation\File\File
+     */
+    public function getCapa() 
+    {
+        $pasta = __DIR__.'/../../../web/capas/'.$this->capa;
+        $file = new \Symfony\Component\HttpFoundation\File\File($pasta);
+        
+        return $file;
+    }
+    
+    /**
+     * Retorna o nome da capa cadastrada
      * @return string
      */
-    public function getCapa() {
+    public function getNomeCapa()
+    {
         return $this->capa;
     }
 
