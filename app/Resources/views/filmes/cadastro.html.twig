@@ -2,7 +2,7 @@
 
 {% block title %}Filmes{% endblock %}
 
- 
+
 {% block stylesheets %}
     <style>
         .radio-exp .radio {
@@ -10,7 +10,7 @@
             margin-right: 15px;
         }        
     </style>
-      
+
 {% endblock %}
 
 {% block body %}
@@ -21,7 +21,7 @@
         {{ form_start(form_filmes) }}
 
         {{ form_row(form_filmes.genero) }}
-        
+
         <div class="form-group">
             {{ form_label(form_filmes.lancamento, "É lançamento?") }}
             {{ form_widget(form_filmes.lancamento, {
@@ -32,17 +32,18 @@
             }}
             {{ form_errors(form_filmes.lancamento) }}
         </div>
-        
-            {{ form_widget(form_filmes) }}
+
+        {{ form_widget(form_filmes) }}
+        {% if capa %}
             <div>
                 <img src="/capas/{{ capa }}" class="media-photo">
             </div>
-            
-            
-            <!--button-->
-            <button id="salvar" class="btn bnt-primary pull-right" type="submit">Salvar</button>
+        {% endif %}
 
-            {{ form_end(form_filmes) }}
+        <!--button-->
+        <button id="salvar" class="btn bnt-primary pull-right" type="submit">Salvar</button>
+
+        {{ form_end(form_filmes) }}
     </fieldset>
 {% endblock %}
 

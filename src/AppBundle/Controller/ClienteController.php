@@ -22,7 +22,10 @@ class ClienteController extends Controller {
      * @Route("/", name="cliente_index")
      * @Method("GET")
      */
-    public function indexAction() {
+    public function indexAction() 
+    {
+        $user = $this->getUser();
+        
         $em = $this->getDoctrine()->getManager();
 
         $clientes = $em->getRepository('AppBundle:Cliente')->findAll();
